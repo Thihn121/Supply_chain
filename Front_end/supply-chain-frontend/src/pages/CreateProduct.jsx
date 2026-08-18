@@ -1,4 +1,5 @@
 import { useState } from "react";
+import QRCodeCard from "../components/QRCodeCard";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { createProduct, productExists } from "../services/api";
@@ -23,6 +24,7 @@ const initialForm = {
 function CreateProduct({networkStatus}) {
   const [form, setForm] = useState(initialForm);
   const [components, setComponents] = useState([]);
+  const [createdProductId, setCreatedProductId] = useState("");
   const [componentInput, setComponentInput] = useState("");
   const [componentChecking, setComponentChecking] = useState(false);
   const [componentError, setComponentError] = useState("");
@@ -30,7 +32,7 @@ function CreateProduct({networkStatus}) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -109,7 +111,7 @@ function CreateProduct({networkStatus}) {
     setLoading(true);
     setSuccess("");
     setError("");
-
+    setCreatedProductId("");
     try {
       await validateComponents();
 
@@ -139,6 +141,7 @@ function CreateProduct({networkStatus}) {
       };
 
       await createProduct(product);
+      setCreatedProductId(product.id);
 
       setSuccess(`Product "${product.id}" đã được tạo thành công.`);
 
@@ -169,10 +172,24 @@ function CreateProduct({networkStatus}) {
             </div>
           </div>
 
-          {success && <div className="alert success-alert">{success}</div>}
+          {/* {success && <div className="alert success-alert">{success}</div>} */}
+          {success && (
+            <div className="created-result">
+              <div className="alert success-alert">
+                {success}
+              </div>
 
-          {error && <div className="alert error-alert">{error}</div>}
+              {createdProductId && (
+                <QRCodeCard productId={createdProductId} />
+              )}
+            </div>
+          )}
 
+          {error && (
+            <div className="alert error-alert">
+              {error}
+            </div>
+          )}
           <form className="product-form" onSubmit={handleSubmit}>
             <section className="form-section">
               <div className="form-section-title">
@@ -194,7 +211,6 @@ function CreateProduct({networkStatus}) {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label>
                     Barcode <span>*</span>
@@ -487,6 +503,9 @@ function CreateProduct({networkStatus}) {
                 className="secondary-button"
                 onClick={() => {
                   setForm(initialForm);
+                  setCreatedProductId("");
+                  setComponentError("");
+                  setComponentSuccess("");
                   setComponents([]);
                   setComponentInput("");
                   setSuccess("");

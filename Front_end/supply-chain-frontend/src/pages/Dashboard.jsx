@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getHealth, getAllProducts } from "../services/api";
 import { createProduct } from "../services/api";
 import { Link } from "react-router-dom";
+
 function Dashboard({ networkStatus, healthData }) {
   const [products, setProducts] = useState([]);
   //Load Product
@@ -56,19 +57,23 @@ function Dashboard({ networkStatus, healthData }) {
 
         <section className="dashboard-content">
           <div className="stats-grid">
-            <StatCard
-              title="Products"
-              value={products.length}
-              description="Products stored on blockchain"
-              icon="▣"
-            />
+            <Link to="/products" className="stat-link">
+              <StatCard
+                title="Products"
+                value={products.length}
+                description="Products stored on blockchain"
+                icon="▣"
+              />
+            </Link>
 
-            <StatCard
-              title="Tracked Items"
-              value={trackedItems}
-              description="Products with location history"
-              icon="⌖"
-            />
+            <Link to="/tracked-products" className="stat-link">
+              <StatCard
+                title="Tracked Items"
+                value={trackedItems}
+                description="Products with location history"
+                icon="⌖"
+              />
+            </Link>
 
             <StatCard
               title="Network"

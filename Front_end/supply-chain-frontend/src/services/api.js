@@ -1,5 +1,5 @@
-const API_URL = "http://192.168.2.200:3003";
-
+//const API_URL = "http://192.168.2.200:3003";
+const API_URL = "/api";
 async function parseResponse(response) {
   const text = await response.text();
 

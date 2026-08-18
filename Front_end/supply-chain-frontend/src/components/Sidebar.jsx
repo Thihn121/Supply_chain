@@ -59,7 +59,6 @@ function Sidebar({ networkStatus = "checking" }) {
         <div className="network-box">
           <div className="network-label">NETWORK</div>
           <div className="network-name">Hyperledger Fabric</div>
-          <div className="network-channel">Channel: mychannel</div>
 
           <div
               className={`network-status ${networkStatus}`}

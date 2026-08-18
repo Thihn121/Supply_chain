@@ -2,7 +2,7 @@ function Header() {
   return (
     <header className="header">
       <div>
-        <h1>Dashboard</h1>
+        <h1>Tracking system</h1>
         <p>Supply chain information sharing and traceability</p>
       </div>
 

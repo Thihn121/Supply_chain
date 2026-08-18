@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import QRCodeCard from "../components/QRCodeCard";
 import { getProductWithHistory } from "../services/api";
 
 function ProductDetail({ networkStatus }) {
@@ -33,8 +34,6 @@ function ProductDetail({ networkStatus }) {
 
     const product = useMemo(() => {
     if (!data) return null;
-
-    // API AleRapchan trả về { result: ProductWithHistory }
     return data.result || data;
     }, [data]);
 
@@ -135,7 +134,7 @@ function ProductDetail({ networkStatus }) {
               <div className="card-title">
                 <h3>Product Information</h3>
               </div>
-
+              <QRCodeCard productId={product.id} />
               <div className="info-grid">
                 <div className="info-item">
                   <span>Product ID</span>

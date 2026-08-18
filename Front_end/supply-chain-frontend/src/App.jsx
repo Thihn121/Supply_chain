@@ -6,7 +6,8 @@ import CreateProduct from "./pages/CreateProduct";
 import TraceProduct from "./pages/TraceProduct";
 import ShipProduct from "./pages/ShipProduct";
 import ProductDetail from "./pages/ProductDetail";
-
+import Products from "./pages/Products";
+import TrackedProducts from "./pages/TrackedProducts";
 import { getHealth } from "./services/api";
 
 function App() {
@@ -68,14 +69,28 @@ function App() {
             <ShipProduct networkStatus={networkStatus} />
           }
         />
-
+        
         <Route
           path="/products/:id"
           element={
             <ProductDetail networkStatus={networkStatus} />
           }
         />
+        <Route
+          path="/products"
+          element={
+            <Products networkStatus={networkStatus} />
+          }
+        />
+
+        <Route
+          path="/tracked-products"
+          element={
+            <TrackedProducts networkStatus={networkStatus} />
+          }
+        />
       </Routes>
+      
     </BrowserRouter>
   );
 }
